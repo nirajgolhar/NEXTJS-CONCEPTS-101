@@ -1,20 +1,17 @@
-// app/page.tsx
-import Navbar from './components/Navbar';
+import Navbar from '../components/Navbar';
 
-export const metadata = {
-  title: 'SSG Home',
-};
+export const dynamic = 'force-dynamic'; // SSR on every request
 
-export default async function Home() {
+export default async function SSRPage() {
   const res = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=5', {
-    cache: 'force-cache', // SSG
+    cache: 'no-store',
   });
   const posts = await res.json();
 
   return (
     <main className="p-6">
       <Navbar />
-      <h1 className="text-2xl font-bold mb-4">Static Site Generation (SSG)</h1>
+      <h1 className="text-2xl font-bold mb-4">Server-Side Rendering (SSR)</h1>
       <ul className="space-y-2">
         {posts.map((post: any) => (
           <li key={post.id} className="border-b pb-2">
