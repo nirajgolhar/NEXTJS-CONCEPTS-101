@@ -1,6 +1,6 @@
 import { revalidatePath, revalidateTag } from 'next/cache';
 
-export async function purgeSSGData() {
+async function purgeSSGData() {
   revalidatePath('/');
   revalidateTag('my-tag');
 }
