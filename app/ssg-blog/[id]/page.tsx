@@ -15,7 +15,7 @@ type BlogPageProps = {
   };
 };
 
-export default async function BlogPage({ params }: BlogPageProps) {
+export default async function BlogPage({ params }: any) {
   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`, {
     cache: 'force-cache',
   });
