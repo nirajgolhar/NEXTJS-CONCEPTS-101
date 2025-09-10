@@ -1,13 +1,21 @@
 import { getExecutionInfo } from '@/lib/executionInfo';
 import Navbar from '@/app/components/Navbar';
 
+// `generateStaticParams` defines which params are available at build time
 export const generateStaticParams = async () => {
   const res = await fetch('https://jsonplaceholder.typicode.com/posts?_limit=3');
   const posts = await res.json();
   return posts.map((post: any) => ({ id: post.id.toString() }));
 };
 
-export default async function BlogPage({ params }: { params: { id: string } }) {
+// Explicitly type props for clarity
+type BlogPageProps = {
+  params: {
+    id: string;
+  };
+};
+
+export default async function BlogPage({ params }: BlogPageProps) {
   const res = await fetch(`https://jsonplaceholder.typicode.com/posts/${params.id}`, {
     cache: 'force-cache',
   });
