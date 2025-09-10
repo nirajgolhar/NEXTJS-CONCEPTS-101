@@ -3,7 +3,7 @@
 
 import { useSession } from 'next-auth/react';
 import { useState } from 'react';
-import { addItemToCartLocal } from '@/lib/indexedDb';
+// import { addItemToCartLocal } from '@/lib/indexedDb';
 
 export default function AddToCartButton({ productId }: { productId: string }) {
   const { data: session } = useSession();
@@ -17,7 +17,7 @@ export default function AddToCartButton({ productId }: { productId: string }) {
     }
 
     setLoading(true);
-    await addItemToCartLocal(session.user.id, productId, 1);
+    // await addItemToCartLocal(session.user.id, productId, 1);
     setLoading(false);
     setMessage("Added to cart!");
   };
