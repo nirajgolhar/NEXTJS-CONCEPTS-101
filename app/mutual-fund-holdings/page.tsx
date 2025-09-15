@@ -122,30 +122,34 @@ export default function HoldingsComparison() {
   };
 
   const downloadResults = () => {
-  if (results.length === 0) return;
+    if (results.length === 0) return;
 
-  const worksheet = XLSX.utils.json_to_sheet(
-    results.map((r) => ({
-      ISIN: r.ISIN,
-      Name: r.Name,
-      "Past Qty": r.pastQty ?? "-",
-      "Latest Qty": r.Quantity,
-      Change: r.change,
-      "Qty Diff": r.qtyChange,
-      "% Change": r.pctChange !== null ? `${r.pctChange}%` : "-",
-    }))
-  );
+    const worksheet = XLSX.utils.json_to_sheet(
+      results.map((r) => ({
+        ISIN: r.ISIN,
+        Name: r.Name,
+        "Past Qty": r.pastQty ?? "-",
+        "Latest Qty": r.Quantity,
+        Change: r.change,
+        "Qty Diff": r.qtyChange,
+        "% Change": r.pctChange !== null ? `${r.pctChange}%` : "-",
+      }))
+    );
 
-  const workbook = XLSX.utils.book_new();
-  XLSX.utils.book_append_sheet(workbook, worksheet, "Comparison");
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, "Comparison");
 
-  XLSX.writeFile(workbook, "holdings-comparison.xlsx");
-};
+    XLSX.writeFile(workbook, "holdings-comparison.xlsx");
+  };
 
   return (
     <div className="p-6">
+      <div className="mb-4">
+        <a href="/" className="text-blue-500 hover:underline">
+          &larr; Back to Home
+        </a>
+      </div>
       <h1 className="text-2xl font-bold mb-4">Mutual Fund Holdings Comparison</h1>
-
       <div className="flex gap-4 mb-4">
         <div>
           <label className="block mb-1 font-medium">Past Month</label>
@@ -170,11 +174,11 @@ export default function HoldingsComparison() {
           Compare
         </button>
         <button
-  onClick={downloadResults}
-  className="bg-green-600 text-white px-4 py-2 rounded"
->
-  Download Excel
-</button>
+          onClick={downloadResults}
+          className="bg-green-600 text-white px-4 py-2 rounded"
+        >
+          Download Excel
+        </button>
       </div>
 
       {results.length > 0 && (
@@ -198,12 +202,12 @@ export default function HoldingsComparison() {
                   r.change === "NEW"
                     ? "bg-green-100"
                     : r.change === "EXITED"
-                    ? "bg-red-100"
-                    : r.change === "INCREASED"
-                    ? "bg-blue-100"
-                    : r.change === "DECREASED"
-                    ? "bg-yellow-100"
-                    : ""
+                      ? "bg-red-100"
+                      : r.change === "INCREASED"
+                        ? "bg-blue-100"
+                        : r.change === "DECREASED"
+                          ? "bg-yellow-100"
+                          : ""
                 }
               >
                 <td className="border p-2">{r.ISIN}</td>
